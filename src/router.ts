@@ -1,5 +1,6 @@
 import { Router} from "express";
 import userController from "./user.controller";
+import authMiddleware from './auth.middleware';
 
 const router = Router();
 
@@ -9,6 +10,6 @@ router.post('/signup/confirm', userController.confirmSignUp);
 
 router.post('/signin', userController.signIn);
 
-router.get('/profile', userController.getProfile);
+router.get('/profile', authMiddleware, userController.getProfile);
 
 export default router;

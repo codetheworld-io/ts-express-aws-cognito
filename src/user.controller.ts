@@ -1,5 +1,6 @@
 import express from 'express';
 import cognitoUserPoolHelper from './cognito.user.pool.helper';
+import { IAuthenticatedRequest } from './auth.middleware';
 
 interface IUserController {
   signUp: express.Handler,
@@ -37,8 +38,8 @@ const userController: IUserController = {
       res.status(500).json({ message: err.message });
     }
   },
-  getProfile: (req, res) => {
-    res.json({});
+  getProfile: (req: IAuthenticatedRequest, res) => {
+    res.json(req.user);
   },
 };
 
