@@ -20,6 +20,7 @@
     "amazon-cognito-identity-js": "^5.0.6",
     "aws-sdk": "^2.958.0",
     "cross-fetch": "^3.1.4",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1"
   }
 }
