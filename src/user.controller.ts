@@ -1,4 +1,5 @@
-import express from "express";
+import express from 'express';
+import cognitoUserPoolHelper from './cognito.user.pool.helper';
 
 interface IUserController {
   signUp: express.Handler,
@@ -7,15 +8,34 @@ interface IUserController {
   getProfile: express.Handler,
 }
 
+
 const userController: IUserController = {
-  signUp: (req, res) => {
-    res.json(req.body);
+  signUp: async (req, res) => {
+    try {
+      const { password, email } = req.body;
+      const result = await cognitoUserPoolHelper.signUp({ email, password });
+      res.json({ message: `${result} is created.` });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   },
-  signIn: (req, res) => {
-    res.json(req.body);
+  confirmSignUp: async (req, res) => {
+    try {
+      const { email, code } = req.body;
+      const result = await cognitoUserPoolHelper.confirmSignUp({ email, code });
+      res.json({ message: result });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   },
-  confirmSignUp: (req, res) => {
-    res.json(req.body);
+  signIn: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const result = await cognitoUserPoolHelper.signIn({ email, password });
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   },
   getProfile: (req, res) => {
     res.json({});
