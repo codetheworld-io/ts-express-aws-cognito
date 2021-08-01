@@ -1,0 +1,38 @@
+### SignUp
+
+POST http://localhost:3000/api/v1/users/signup
+Content-Type: application/json
+
+{
+  "password": "sTr0ngP@ssw0rd1234",
+  "email": "email_add@example.com"
+}
+
+### Confirm SignUp
+
+POST http://localhost:3000/api/v1/users/signup/confirm
+Content-Type: application/json
+
+{
+  "email": "email_add@example.com",
+  "code": "000000"
+}
+
+### SignIn
+
+POST http://localhost:3000/api/v1/users/signin
+Content-Type: application/json
+
+{
+  "password": "sTr0ngP@ssw0rd1234",
+  "email": "email_add@example.com"
+}
+
+> {% client.global.set('auth_token', response.body.accessToken); %}
+
+### Profile
+
+GET http://localhost:3000/api/v1/users/profile
+Authorization: {{auth_token}}
+
+
